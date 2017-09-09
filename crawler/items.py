@@ -17,13 +17,62 @@ simple_ingredient_quantity_pattern = re.compile("^(?P<quantity>\d+([,.]\d+)?) ?(
 
 unity_black_list = ('pomme', )
 
+
+
+# id = Column(Integer, primary_key=True)
+# url = Column('url', String)
+# source = Column('url', String)
+# source_id = Column('source_id', String)
+
+# title = Column('title', String)
+# raw_ingredients = Column('raw_ingredients', postgresql.ARRAY(String, dimensions=1))
+# raw_recipe = Column('raw_recipe', postgresql.ARRAY(String, dimensions=1))
+
+# type = Column('type', MealType, nullable=True)
+# difficulty = Column('difficulty', DifficultyType, nullable=True)
+# cost = Column('cost', CostType, nullable=True)
+# preparation_time = Column('preparation_time', SmallInteger)
+# cook_time = Column('cook_time', SmallInteger)
+
+# user_rating = Column('user_rating', Float)
+# ratings_count = Column('ratings_count', Integer)
+
+# photos = Column('photos', postgresql.ARRAY(String, dimensions=1))
+
 class MarmitonPage(scrapy.Item):
     url = scrapy.Field()
     title = scrapy.Field()
+    raw_ingredients = scrapy.Field()
+    raw_recipe = scrapy.Field()
+    raw_difficulty = scrapy.Field()
+    raw_cost = scrapy.Field()
+
+    type = scrapy.Field()
+    difficulty = scrapy.Field()
+    cost = scrapy.Field()
+    preparation_time = scrapy.Field()
+    cook_time = scrapy.Field()
+    user_rating = scrapy.Field()
+    ratings_count = scrapy.Field()
+    photos = scrapy.Field()
+    tags = scrapy.Field()
+
     ingredients = scrapy.Field()
 
     number = scrapy.Field()
     unity_number = scrapy.Field()
+
+
+    @property
+    def source(self):
+        return "marmiton"
+
+    @property
+    def source_id(self):
+        r = self['url'].rsplit('_', 1)
+        if len(r) == 2:
+            return r[1].split('.aspx')[0]
+        return None
 
 
     def parse_ingredients(self, ingredients):
