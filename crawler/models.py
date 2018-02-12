@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, SmallInteger, Float, JSON
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, SmallInteger, Float, JSON, Boolean
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.declarative import declarative_base
@@ -72,3 +72,19 @@ class ScrapedRecipes(Base):
             'url': self.url,
             'source': self.source,
         }
+
+
+
+class Ingredients(Base):
+    __tablename__ = "ingredients"
+
+    id = Column(Integer, primary_key=True)
+    name = Column('name', String)
+    french_labels = Column('french_labels', postgresql.ARRAY(String, dimensions=1), default=[])
+    main_french_label = Column('main_french_label', String)
+
+    vegan = Column('vegan', Boolean, default=False)
+    vegetarian = Column('vegetarian', Boolean, default=False)
+    gluten_free = Column('gluten_free', Boolean, default=False)
+
+    foodb_id = Column(Integer)

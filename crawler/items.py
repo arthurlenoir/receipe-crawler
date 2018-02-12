@@ -15,7 +15,7 @@ ingredient_quantity_pattern = re.compile("^(?P<quantity>\d+([,.]\d+)?) ?(?P<unit
 quotient_ingredient_quantity_pattern = re.compile("^(?P<q1>\d+) ?/ ?(?P<q2>\d+) ?(?P<name>.+)$", flags=re.IGNORECASE)
 simple_ingredient_quantity_pattern = re.compile("^(?P<quantity>\d+([,.]\d+)?) ?(?P<name>.+)$", flags=re.IGNORECASE)
 
-unity_black_list = ('pomme', )
+unity_black_list = ('pomme', 'herbe', 'herbes', 'viandes')
 
 
 

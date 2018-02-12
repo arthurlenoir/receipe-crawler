@@ -40,3 +40,18 @@ CREATE TABLE scraped_recipes (
 -- Select every ingredient name
 -- SELECT (o.ing->>'name'), (o.ing->>'uid'), COUNT(r.id) as count FROM scraped_recipes r, json_array_elements(r.ingredients) o(ing) GROUP BY (o.ing->>'name', o.ing->>'uid') ORDER BY count DESC LIMIT 1000;
 
+
+CREATE TABLE ingredients (
+    id serial PRIMARY KEY,
+    foodb_id integer UNIQUE, 
+
+    name varchar(255) NOT NULL,
+
+    french_labels varchar(255)[],
+    main_french_label varchar(255),
+
+    vegan boolean DEFAULT FALSE,
+    vegetarian boolean DEFAULT FALSE,
+    gluten_free boolean DEFAULT FALSE
+
+);
